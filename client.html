@@ -33,43 +33,82 @@
         });
 
         document.getElementById('read').addEventListener('click', function () {
-            fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                if (data.message) {
-                    document.getElementById('output').textContent = data.message;
-                } else {
-                    document.getElementById('output').textContent = `Issue ID: ${data.id}, Description: ${data.description}`;
-                }
-            });
-        });
+            const action = 'read'; // You can change this to 'delete' or 'update' as needed
+            const id = prompt('Enter the issue id:');
 
-        document.getElementById('update').addEventListener('click', function () {
-            const description = prompt('Enter the updated issue description:');
-            if (description !== null && description !== '') {
-                const data = { description: description };
+            if (isNaN(id) || id <= 0) {
+                document.getElementById('output').textContent = "Please enter a valid issue ID.";
+            } else {
+                const apiUrl = `http://localhost/sitemate/sitemate/server.php?action=${action}&id=${id}`; // Replace with your server URL
+
                 fetch(apiUrl, {
-                    method: 'PUT',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    method: 'GET',
                 })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('output').textContent = data.message;
+                    if (data.message) {
+                        document.getElementById('output').textContent = data.message;
+                    } else {
+                        document.getElementById('output').textContent = `Issue ID: ${data.id}, Description: ${data.description}`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('output').textContent = "Error: " + error;
+                });
+            }
+        });
+
+        document.getElementById('update').addEventListener('click', function () {
+            const action = 'update'; // You can change this to 'delete' or 'update' as needed
+            const id = prompt('Enter the issue id:');
+            const description = prompt('Enter the issue description:');
+
+            if (isNaN(id) || id <= 0) {
+                document.getElementById('output').textContent = "Please enter a valid issue ID.";
+            } else {
+                const apiUrl = `http://localhost/sitemate/sitemate/server.php?action=${action}&id=${id}&description=${description}`; 
+
+                fetch(apiUrl, {
+                    method: 'PUT',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        document.getElementById('output').textContent = data.message;
+                    } else {
+                        document.getElementById('output').textContent = `Issue ID: ${data.id}, Description: ${data.description}`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('output').textContent = "Error: " + error;
                 });
             }
         });
 
         document.getElementById('delete').addEventListener('click', function () {
-            fetch(apiUrl, {
-                method: 'DELETE'
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('output').textContent = data.message;
-            });
+            const action = 'delete'; // You can change this to 'delete' or 'update' as needed
+            const id = prompt('Enter the issue id:');
+
+            if (isNaN(id) || id <= 0) {
+                document.getElementById('output').textContent = "Please enter a valid issue ID.";
+            } else {
+                const apiUrl = `http://localhost/sitemate/sitemate/server.php?action=${action}&id=${id}`; // Replace with your server URL
+
+                fetch(apiUrl, {
+                    method: 'DELETE',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        document.getElementById('output').textContent = data.message;
+                    } else {
+                        document.getElementById('output').textContent = `Issue ID: ${data.id}, Description: ${data.description}`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('output').textContent = "Error: " + error;
+                });
+            }
         });
     </script>
 </body>
