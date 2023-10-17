@@ -19,3 +19,6 @@ http://localhost/sitemate/sitemate/server.php?action='update'&id=6&description='
 
 client.html
 all button available follow the instructions. 
+
+client GUI:
+![alt text]([http://url/to/img.png](https://github.com/nayabbukhari/sitemate/blob/main/client-GUI.JPG)https://github.com/nayabbukhari/sitemate/blob/main/client-GUI.JPG)
