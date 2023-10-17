@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>REST API Client</title>
+</head>
+<body>
+    <h1>REST API Client</h1>
+    <button id="create">Create Issue</button>
+    <button id="read">Read Issue</button>
+    <button id="update">Update Issue</button>
+    <button id="delete">Delete Issue</button>
+    <div id="output"></div>
+
+    <script>
+        const apiUrl = 'http://localhost/sitemate/sitemate/server.php'; // Replace with the URL of your server
+
+        document.getElementById('create').addEventListener('click', function () {
+            const description = prompt('Enter the issue description:');
+            if (description !== null && description !== '') {
+                const data = { description: description };
+                fetch(apiUrl, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('output').textContent = data.message;
+                });
+            }
+        });
+
+        document.getElementById('read').addEventListener('click', function () {
+            fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    document.getElementById('output').textContent = data.message;
+                } else {
+                    document.getElementById('output').textContent = `Issue ID: ${data.id}, Description: ${data.description}`;
+                }
+            });
+        });
+
+        document.getElementById('update').addEventListener('click', function () {
+            const description = prompt('Enter the updated issue description:');
+            if (description !== null && description !== '') {
+                const data = { description: description };
+                fetch(apiUrl, {
+                    method: 'PUT',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('output').textContent = data.message;
+                });
+            }
+        });
+
+        document.getElementById('delete').addEventListener('click', function () {
+            fetch(apiUrl, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').textContent = data.message;
+            });
+        });
+    </script>
+</body>
+</html>
