@@ -21,4 +21,4 @@ client.html
 all button available follow the instructions. 
 
 client GUI:
-![alt text]([http://url/to/img.png](https://github.com/nayabbukhari/sitemate/blob/main/client-GUI.JPG)https://github.com/nayabbukhari/sitemate/blob/main/client-GUI.JPG)
+![alt text]([/client-GUI.JPG)
