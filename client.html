@@ -1,115 +1,223 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>REST API Client</title>
-</head>
-<body>
-    <h1>REST API Client</h1>
-    <button id="create">Create Issue</button>
-    <button id="read">Read Issue</button>
-    <button id="update">Update Issue</button>
-    <button id="delete">Delete Issue</button>
-    <div id="output"></div>
+  </head>
+  <body style="padding-bottom: 1px" text="#000000" bgcolor="#FFFFFF">
+    <br />
+    <div class="moz-forward-container">
+      <br />
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+      <br />
+      <div class="moz-forward-container">
+        <div class="moz-forward-container">
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              background: #333;
+              margin: 0;
+              padding: 0;
+            }
+            .container {
+              background-color: #ffffff;
+              border-radius: 10px;
+
+              margin: 20px auto;
+              width: 80%;
+            }
+            .newsletter {
+              padding: 100px 150px 50px 150px;
+            }
+            h1,
+            h3 {
+              color: #ff7700;
+              text-align: left;
+            }
+            p {
+              color: #333;
+              margin: 10px 0;
+            }
+            /* Style for the 'btn-primary' class */
+            .btn.btn-primary {
+              background-color: #007bff; /* Blue color for primary */
+              color: #fff; /* White text color */
+              padding: 10px 20px; /* Padding for the button */
+              border: none; /* No border */
+              border-radius: 5px; /* Rounded corners */
+              cursor: pointer; /* Pointer cursor on hover */
+            }
+
+            /* Style for the 'btn-success' class */
+            .btn.btn-success {
+              background-color: #28a745; /* Green color for success */
+              color: #fff; /* White text color */
+              padding: 10px 20px; /* Padding for the button */
+              border: none; /* No border */
+              border-radius: 5px; /* Rounded corners */
+              cursor: pointer; /* Pointer cursor on hover */
+            }
+
+            /* Style for the 'btn-secondary' class */
+            .btn.btn-secondary {
+              background-color: #ee8b00; /* Grey color for secondary */
+              color: #fff; /* White text color */
+              padding: 10px 20px; /* Padding for the button */
+              border: none; /* No border */
+              border-radius: 5px; /* Rounded corners */
+              cursor: pointer; /* Pointer cursor on hover */
+            }
+
+            /* Style for the 'btn-warning' class */
+            .btn.btn-warning {
+              background-color: #c91202; /* Yellow color for warning */
+              color: #ffffff; /* Black text color */
+              padding: 10px 20px; /* Padding for the button */
+              border: none; /* No border */
+              border-radius: 5px; /* Rounded corners */
+              cursor: pointer; /* Pointer cursor on hover */
+            }
+
+            /* Hover effect for all buttons */
+            .btn:hover {
+              opacity: 0.8; /* Slight opacity on hover */
+            }
+          </style>
+          <div class="container">
+            <div class="newsletter">
+              <h1>REST API Client</h1>
+              <button class="btn btn-primary" id="create">Create Issue</button>
+              <button class="btn btn-success" id="read">Read Issue</button>
+              <button class="btn btn-secondary" id="update">Update Issue</button>
+              <button class="btn btn-warning" id="delete">Delete Issue</button>
+            </div>
+            <div class="newsletter">
+              <h1>REST API Client OUTPUT</h1>
+              <div class='btn btn-success' id="output"></div>
+
+              <p><br><br><br><br>
+                If you have any questions or would like to discuss potential
+                business opportunities, please don't hesitate to contact us.
+                We're looking forward to working with you.
+              </p>
+              <p><br /></p>
+              <p>Kind Regards</p>
+              <p>Syed Nayab</p>
+              <p>nayab@nayab.au</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script>
-        const apiUrl = 'http://localhost/sitemate/sitemate/server.php'; // Replace with the URL of your server
+      const apiUrl = "http://localhost/sitemate/sitemate/server.php"; // Replace with the URL of your server
 
-        document.getElementById('create').addEventListener('click', function () {
-            const description = prompt('Enter the issue description:');
-            if (description !== null && description !== '') {
-                const data = { description: description };
-                fetch(apiUrl, {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('output').textContent = data.message;
-                });
-            }
-        });
+      document.getElementById("create").addEventListener("click", function () {
+        const description = prompt("Enter the issue description:");
+        if (description !== null && description !== "") {
+          const data = { description: description };
+          fetch(apiUrl, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              document.getElementById("output").textContent = data.message;
+            });
+        }
+      });
 
-        document.getElementById('read').addEventListener('click', function () {
-            const action = 'read'; // You can change this to 'delete' or 'update' as needed
-            const id = prompt('Enter the issue id:');
+      document.getElementById("read").addEventListener("click", function () {
+        const action = "read"; // You can change this to 'delete' or 'update' as needed
+        const id = prompt("Enter the issue id:");
 
-            if (isNaN(id) || id <= 0) {
-                document.getElementById('output').textContent = "Please enter a valid issue ID.";
-            } else {
-                const apiUrl = `http://localhost/sitemate/sitemate/server.php?action=${action}&id=${id}`; // Replace with your server URL
+        if (isNaN(id) || id <= 0) {
+          document.getElementById("output").textContent =
+            "Please enter a valid issue ID.";
+        } else {
+          const apiUrl = `http://localhost/sitemate/sitemate/server.php?action=${action}&id=${id}`; // Replace with your server URL
 
-                fetch(apiUrl, {
-                    method: 'GET',
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        document.getElementById('output').textContent = data.message;
-                    } else {
-                        document.getElementById('output').textContent = `Issue ID: ${data.id}, Description: ${data.description}`;
-                    }
-                })
-                .catch(error => {
-                    document.getElementById('output').textContent = "Error: " + error;
-                });
-            }
-        });
+          fetch(apiUrl, {
+            method: "GET",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.message) {
+                document.getElementById("output").textContent = data.message;
+              } else {
+                document.getElementById(
+                  "output"
+                ).textContent = `Issue ID: ${data.id}, Description: ${data.description}`;
+              }
+            })
+            .catch((error) => {
+              document.getElementById("output").textContent = "Error: " + error;
+            });
+        }
+      });
 
-        document.getElementById('update').addEventListener('click', function () {
-            const action = 'update'; // You can change this to 'delete' or 'update' as needed
-            const id = prompt('Enter the issue id:');
-            const description = prompt('Enter the issue description:');
+      document.getElementById("update").addEventListener("click", function () {
+        const action = "update"; // You can change this to 'delete' or 'update' as needed
+        const id = prompt("Enter the issue id:");
+        const description = prompt("Enter the issue description:");
 
-            if (isNaN(id) || id <= 0) {
-                document.getElementById('output').textContent = "Please enter a valid issue ID.";
-            } else {
-                const apiUrl = `http://localhost/sitemate/sitemate/server.php?action=${action}&id=${id}&description=${description}`; 
+        if (isNaN(id) || id <= 0) {
+          document.getElementById("output").textContent =
+            "Please enter a valid issue ID.";
+        } else {
+          const apiUrl = `http://localhost/sitemate/sitemate/server.php?action=${action}&id=${id}&description=${description}`;
 
-                fetch(apiUrl, {
-                    method: 'PUT',
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        document.getElementById('output').textContent = data.message;
-                    } else {
-                        document.getElementById('output').textContent = `Issue ID: ${data.id}, Description: ${data.description}`;
-                    }
-                })
-                .catch(error => {
-                    document.getElementById('output').textContent = "Error: " + error;
-                });
-            }
-        });
+          fetch(apiUrl, {
+            method: "PUT",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.message) {
+                document.getElementById("output").textContent = data.message;
+              } else {
+                document.getElementById(
+                  "output"
+                ).textContent = `Issue ID: ${data.id}, Description: ${data.description}`;
+              }
+            })
+            .catch((error) => {
+              document.getElementById("output").textContent = "Error: " + error;
+            });
+        }
+      });
 
-        document.getElementById('delete').addEventListener('click', function () {
-            const action = 'delete'; // You can change this to 'delete' or 'update' as needed
-            const id = prompt('Enter the issue id:');
+      document.getElementById("delete").addEventListener("click", function () {
+        const action = "delete"; // You can change this to 'delete' or 'update' as needed
+        const id = prompt("Enter the issue id:");
 
-            if (isNaN(id) || id <= 0) {
-                document.getElementById('output').textContent = "Please enter a valid issue ID.";
-            } else {
-                const apiUrl = `http://localhost/sitemate/sitemate/server.php?action=${action}&id=${id}`; // Replace with your server URL
+        if (isNaN(id) || id <= 0) {
+          document.getElementById("output").textContent =
+            "Please enter a valid issue ID.";
+        } else {
+          const apiUrl = `http://localhost/sitemate/sitemate/server.php?action=${action}&id=${id}`; // Replace with your server URL
 
-                fetch(apiUrl, {
-                    method: 'DELETE',
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        document.getElementById('output').textContent = data.message;
-                    } else {
-                        document.getElementById('output').textContent = `Issue ID: ${data.id}, Description: ${data.description}`;
-                    }
-                })
-                .catch(error => {
-                    document.getElementById('output').textContent = "Error: " + error;
-                });
-            }
-        });
+          fetch(apiUrl, {
+            method: "DELETE",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.message) {
+                document.getElementById("output").textContent = data.message;
+              } else {
+                document.getElementById(
+                  "output"
+                ).textContent = `Issue ID: ${data.id}, Description: ${data.description}`;
+              }
+            })
+            .catch((error) => {
+              document.getElementById("output").textContent = "Error: " + error;
+            });
+        }
+      });
     </script>
-</body>
+  </body>
 </html>
