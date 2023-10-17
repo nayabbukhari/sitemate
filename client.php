@@ -7,6 +7,14 @@
     <h1>REST API Client</h1>
 
     <?php
+    /**
+     * @name    Syed Nayab Bukhari
+     * @email   nayab@nayab.au
+     * date     17 Oct 2023
+     * 
+     * Server and Client side rest api code 
+     * 
+     */
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $description = $_POST['description'];
         $data = json_encode(array('description' => $description));
